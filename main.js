@@ -17,6 +17,29 @@ const kittenThreeName = 'Cielo' .toUpperCase();
 const kittenThreeDesc = 'Tienen la cabeza cuadrada y los ojos simétricos, por lo que su bella mirada se ha convertido en una de sus señas de identidad. Sus ojos son grandes y las orejas resultan largas y en punta.';
 const kittenThreeRace = 'Maine Coon';
 
+const addBtn = document.querySelector('.js-btn-add');
+const inputDesc = document.querySelector('.js-input-desc');
+const inputPhoto = document.querySelector('.js-input-photo');
+const inputName = document.querySelector('.js-input-name');
+const labelMessageError = document.querySelector('.js-label-error');
+const cancelBtn = document.querySelector('.js-btn-cancel');
+const newForm = document.querySelector('.js-new-form');
+
+addBtn.addEventListener('click', (event)=>{
+    const valueDesc = inputDesc.value;
+    const valuePhoto = inputPhoto.value;
+    const valueName = inputName.value;
+    if (valueDesc === '' || valuePhoto === '' || valueName === '') {
+        labelMessageError.innerHTML = '¡Uy! parece que has olvidado algo.'
+    }
+});
+
+cancelBtn.addEventListener('click', (event)=>{
+    inputPhoto.value = '';
+    inputDesc.value = '';
+    inputName.value = '';
+    newForm.classList.add('collapsed');
+});
 
 const kittenOne = `<li class="card">
 <img
