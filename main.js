@@ -25,14 +25,49 @@ const labelMessageError = document.querySelector('.js-label-error');
 const cancelBtn = document.querySelector('.js-btn-cancel');
 const newForm = document.querySelector('.js-new-form');
 
-addBtn.addEventListener('click', (event)=>{
+
+
+//1LLAMAMOS AL SIMBOLO MAS 
+const addPlus = document.querySelector('.js-add');
+
+//4 CREAMOS LA FUNCION MANEJADORA E INCLUIMOS LAS FUNCIONES DEL PUNTO 3
+function handleClickNewCatForm(event) {
+    event.preventDefault();
+    if (newForm.classList.contains('collapsed')) {
+        showNewCatForm();
+        
+    } else {
+        hideNewCatForm();
+        
+    }
+  }
+//3 CREAMOS LAS FUNCIONES 
+  function showNewCatForm() {
+    newForm.classList.remove('collapsed');
+  }
+  function hideNewCatForm() {
+    newForm.classList.add('collapsed');
+  }
+ 
+  
+//2 LLAMAMOS AL EVENTO SOBRE EL +
+  addPlus.addEventListener('click',handleClickNewCatForm);
+
+  //PUNTO 2. HEMOS LA FUNCION ADDNEWKITTEN Y HEMOS METIDO LAS CONSTANTES DEL EVENTO ADDBTN
+  
+  function addNewKitten(event) {
     const valueDesc = inputDesc.value;
     const valuePhoto = inputPhoto.value;
     const valueName = inputName.value;
     if (valueDesc === '' || valuePhoto === '' || valueName === '') {
         labelMessageError.innerHTML = '¡Uy! parece que has olvidado algo.'
     }
-});
+  }
+
+
+addBtn.addEventListener('click',addNewKitten);
+    
+
 
 cancelBtn.addEventListener('click', (event)=>{
     inputPhoto.value = '';
@@ -41,43 +76,33 @@ cancelBtn.addEventListener('click', (event)=>{
     newForm.classList.add('collapsed');
 });
 
-const kittenOne = `<li class="card">
+//PUNTO 3 HEMOS CREADO UNA FUNCION RENDERKITTEN PARA UNIFICAR EL CODIGO PARA CREAR UN GATO 
+
+function renderKitten(url, desc, name, race) {
+    return `<li class="card">
 <img
     class="card_img"
-    src="${kittenOneImage}"
+    src="${url}"
     alt="siames-cat"
 />
-<h3 class="card_title"> ${kittenOneName}</h3>
-<h4 class="card_race">${kittenOneRace}</h4>
-<p class="card_description">${kittenOneDesc}
+<h3 class="card_title"> ${name}</h3>
+<h4 class="card_race">${race}</h4>
+<p class="card_description">${desc}
 </p>
 </li>`;
+  }
+  
 
 
-const kittenTwo = `<li class="card">
-<img
-    class="card_img"
-    src="${kittenTwoImage}"
-    alt="sphynx-cat"
-/>
-<h3 class="card_title"> ${kittenTwoName}</h3>
-<h4 class="card_race">${kittenTwoRace}</h4>
-<p class="card_description">${kittenTwoDesc}
-</p>
-</li>`;
+const kittenOne = renderKitten(kittenOneImage, kittenOneDesc, kittenOneName, kittenOneRace);
 
-const kittenThree = `<li class="card">
-<img
-    class="card_img"
-    src="${kittenThreeImage}"
-    alt="maine-coon-cat"
-/>
-<h3 class="card_title">${kittenThreeName}</h3>
-<h4 class="card_race">${kittenThreeRace}</h4>
-<p class="card_description">${kittenThreeDesc}
-</p>
-</li>`;
+const kittenTwo = renderKitten(kittenTwoImage, kittenTwoDesc, kittenTwoName, kittenTwoRace);
+
+const kittenThree = renderKitten(kittenThreeImage, kittenThreeDesc, kittenThreeName, kittenThreeRace);
+
 list.innerHTML = kittenOne + kittenTwo + kittenThree;
+
+
 
 const descrSearchText = input_search_desc.value;
 if( kittenOneDesc.includes(descrSearchText) ) {
