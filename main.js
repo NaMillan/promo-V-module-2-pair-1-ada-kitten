@@ -26,6 +26,26 @@ const cancelBtn = document.querySelector('.js-btn-cancel');
 const newForm = document.querySelector('.js-new-form');
 
 
+//Escucha el evento click asociado al botón buscar:
+const buttonSearch = document.querySelector('.js-button-search');
+//Haz la función manejadora asociada al evento anterior:
+//revisar mañana se suma el gato abajo
+const filterKitten = (event) => {
+  event.preventDefault();
+  const descrSearchText = input_search_desc.value;
+  if (kittenOneDesc.includes(descrSearchText)) {
+    list.innerHTML = kittenOne;
+  }
+  if (kittenTwoDesc.includes(descrSearchText)) {
+    list.innerHTML += kittenTwo;
+  }
+  if (kittenThreeDesc.includes(descrSearchText)) {
+    list.innerHTML += kittenThree;
+  }
+  //console.log (descrSearchText);
+};
+
+buttonSearch.addEventListener('click', filterKitten);
 
 //1LLAMAMOS AL SIMBOLO MAS 
 const addPlus = document.querySelector('.js-add');
@@ -104,8 +124,8 @@ list.innerHTML = kittenOne + kittenTwo + kittenThree;
 
 
 
-const descrSearchText = input_search_desc.value;
-if( kittenOneDesc.includes(descrSearchText) ) {
+
+/*if( kittenOneDesc.includes(descrSearchText) ) {
  list.innerHTML = kittenOne;   
 }
 
@@ -115,6 +135,6 @@ if( kittenTwoDesc.includes(descrSearchText) ) {
 
 if( kittenThreeDesc.includes(descrSearchText) ) {
  list.innerHTML+= kittenThree;   
-}
+}*/
 
 
