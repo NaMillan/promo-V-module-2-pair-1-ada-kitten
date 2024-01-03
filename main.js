@@ -33,14 +33,16 @@ const addPlus = document.querySelector('.js-add');
 //4 CREAMOS LA FUNCION MANEJADORA E INCLUIMOS LAS FUNCIONES DEL PUNTO 3
 function handleClickNewCatForm(event) {
     event.preventDefault();
-    if (newForm.classList.contains('collapsed')) {
-        showNewCatForm();
-        
-    } else {
-        hideNewCatForm();
-        
-    }
+    if (newForm.classList.contains('collapsed')){
+      hideNewCatForm();
+      console.log (hideNewCatForm);
+      
+   }else {
+      showNewCatForm();   
+  } 
+    
   }
+
 //3 CREAMOS LAS FUNCIONES 
   function showNewCatForm() {
     newForm.classList.remove('collapsed');
