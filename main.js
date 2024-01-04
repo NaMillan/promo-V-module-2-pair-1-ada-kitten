@@ -1,24 +1,37 @@
 'use strict';
 const list = document.querySelector('.js-list');
 const input_search_desc = document.querySelector('.js_in_search_desc');
-const kittenOneImage = 'https://dev.adalab.es/gato-siames.webp';
+/*const kittenOneImage = 'https://dev.adalab.es/gato-siames.webp';
 const kittenOneName = 'Anastacio'.toUpperCase();
-const kittenOneDesc =
-	'Porte elegante, su patrón de color tan característico y sus ojos de un azul intenso, pero su historia se remonta a Asía al menos hace 500 años, donde tuvo su origen muy posiblemente.';
+const kittenOneDesc = 'Porte elegante, su patrón de color tan característico y sus ojos de un azul intenso, pero su historia se remonta a Asía al menos hace 500 años, donde tuvo su origen muy posiblemente.';
 const kittenOneRace = 'Siamés';
-
 const kittenTwoImage = 'https://dev.adalab.es/sphynx-gato.webp';
 const kittenTwoName = 'Fiona'.toUpperCase();
-const kittenTwoDesc =
-	'Produce fascinación y curiosidad. Exótico, raro, bello, extraño hasta con pinta de alienígena han llegado a definir a esta raza gatuna que se caracteriza por la «ausencia» de pelo.';
+const kittenTwoDesc = 'Produce fascinación y curiosidad. Exótico, raro, bello, extraño hasta con pinta de alienígena han llegado a definir a esta raza gatuna que se caracteriza por la «ausencia» de pelo.';
 const kittenTwoRace = 'Sphynx';
-
 const kittenThreeImage = 'https://dev.adalab.es/maine-coon-cat.webp';
 const kittenThreeName = 'Cielo'.toUpperCase();
-const kittenThreeDesc =
-	'Tienen la cabeza cuadrada y los ojos simétricos, por lo que su bella mirada se ha convertido en una de sus señas de identidad. Sus ojos son grandes y las orejas resultan largas y en punta.';
-const kittenThreeRace = 'Maine Coon';
+const kittenThreeDesc = 'Tienen la cabeza cuadrada y los ojos simétricos, por lo que su bella mirada se ha convertido en una de sus señas de identidad. Sus ojos son grandes y las orejas resultan largas y en punta.';
+const kittenThreeRace = 'Maine Coon';*/
 
+const kittenOneData = {
+	image: 'https://dev.adalab.es/gato-siames.webp',
+	name: 'Anastacio'.toUpperCase(),
+	desc: ' Porte elegante, su patrón de color tan característico y sus ojos de un azul intenso, pero su historia se remonta a Asía al menos hace 500 años, donde tuvo su origen muy posiblemente.',
+	race: 'Siamés',
+};
+const kittenTwoData = {
+	image: 'https://dev.adalab.es/sphynx-gato.webp',
+	name: 'Fiona'.toUpperCase(),
+	desc: 'Produce fascinación y curiosidad. Exótico, raro, bello, extraño hasta con pinta de alienígena han llegado a definir a esta raza gatuna que se caracteriza por la «ausencia» de pelo.',
+	race: 'Sphynx',
+};
+const kittenThreeData = {
+	image: 'https://dev.adalab.es/maine-coon-cat.webp',
+	name: 'Cielo'.toUpperCase(),
+	desc: 'Tienen la cabeza cuadrada y los ojos simétricos, por lo que su bella mirada se ha convertido en una de sus señas de identidad. Sus ojos son grandes y las orejas resultan largas y en punta.',
+	race: 'Maine Coon',
+};
 const addBtn = document.querySelector('.js-btn-add');
 const inputDesc = document.querySelector('.js-input-desc');
 const inputPhoto = document.querySelector('.js-input-photo');
@@ -30,19 +43,19 @@ const newForm = document.querySelector('.js-new-form');
 //Escucha el evento click asociado al botón buscar:
 const buttonSearch = document.querySelector('.js-button-search');
 //Haz la función manejadora asociada al evento anterior:
-//revisar mañana se suma el gato abajo
+//revisar mañana se suma el gato abajoterk
 const filterKitten = (event) => {
 	event.preventDefault();
 	const descrSearchText = input_search_desc.value;
 	list.innerHTML = '';
-	if (kittenOneDesc.includes(descrSearchText)) {
-		list.innerHTML = kittenOne;
+	if (kittenOneData.desc.includes(descrSearchText)) {
+		list.innerHTML = renderKitten(kittenOneData); // Hemos puesto la función renderKitten porque es la que hace que el gato tenga información. Dejamos el innerHTML porque la función renderKitten tiene un return y no un innerHTML.
 	}
-	if (kittenTwoDesc.includes(descrSearchText)) {
-		list.innerHTML += kittenTwo;
+	if (kittenTwoData.desc.includes(descrSearchText)) {
+		list.innerHTML += renderKitten(kittenTwoData);
 	}
-	if (kittenThreeDesc.includes(descrSearchText)) {
-		list.innerHTML += kittenThree;
+	if (kittenThreeData.desc.includes(descrSearchText)) {
+		list.innerHTML += renderKitten(kittenThreeData);
 	}
 	//console.log (descrSearchText);
 };
@@ -56,10 +69,10 @@ const addPlus = document.querySelector('.js-add');
 function handleClickNewCatForm(event) {
 	event.preventDefault();
 	if (newForm.classList.contains('collapsed')) {
-		hideNewCatForm();
+		showNewCatForm();
 		console.log(hideNewCatForm);
 	} else {
-		showNewCatForm();
+		hideNewCatForm();
 	}
 }
 
@@ -96,21 +109,24 @@ cancelBtn.addEventListener('click', (event) => {
 
 //PUNTO 3 HEMOS CREADO UNA FUNCION RENDERKITTEN PARA UNIFICAR EL CODIGO PARA CREAR UN GATO
 
-function renderKitten(url, desc, name, race) {
-	return `<li class="card">
+function renderKitten(kittenData) { // kittenData es un nombre genérico que tenemos que utilizar a lo largo de la función y que se sustituirá cuando llamemos a la función con nuestro parámetro. Podríamos haber puesto pepino y luego pepino.name que se sustituiría por kittenOneData.name cuando llamemos a renderKitten(kittenOneData).
+	const html = `<li class="card">
 <img
     class="card_img"
-    src="${url}"
+    src="${kittenData.image}"
     alt="siames-cat"
 />
-<h3 class="card_title"> ${name}</h3>
-<h4 class="card_race">${race}</h4>
-<p class="card_description">${desc}
+<h3 class="card_title"> ${kittenData.name}</h3>
+<h4 class="card_race">${kittenData.race}</h4>
+<p class="card_description">${kittenData.desc}
 </p>
 </li>`;
+	return html;
 }
+// El list.innerHTML lo dejamos fuera de la función para que luego no se duplique la información al hacer un loquesea.innerHTML = renderKitten() y por eso tenemos que incluir un return en la función, para que guarde esa información.
+list.innerHTML = renderKitten(kittenOneData) + renderKitten(kittenTwoData) + renderKitten(kittenThreeData);
 
-const kittenOne = renderKitten(
+/*const kittenOne = renderKitten(
 	kittenOneImage,
 	kittenOneDesc,
 	kittenOneName,
@@ -129,9 +145,9 @@ const kittenThree = renderKitten(
 	kittenThreeDesc,
 	kittenThreeName,
 	kittenThreeRace
-);
+);*/
 
-list.innerHTML = kittenOne + kittenTwo + kittenThree;
+
 
 /*if( kittenOneDesc.includes(descrSearchText) ) {
     list.innerHTML = kittenOne;   
