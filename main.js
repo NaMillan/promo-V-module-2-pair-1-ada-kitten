@@ -33,6 +33,7 @@ const buttonSearch = document.querySelector('.js-button-search');
 const filterKitten = (event) => {
   event.preventDefault();
   const descrSearchText = input_search_desc.value;
+  list.innerhtml='';
   if (kittenOneDesc.includes(descrSearchText)) {
     list.innerHTML = kittenOne;
   }
