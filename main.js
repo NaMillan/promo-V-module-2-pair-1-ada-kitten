@@ -32,6 +32,9 @@ const kittenThreeData = {
 	desc: 'Tienen la cabeza cuadrada y los ojos simétricos, por lo que su bella mirada se ha convertido en una de sus señas de identidad. Sus ojos son grandes y las orejas resultan largas y en punta.',
 	race: 'Maine Coon',
 };
+
+const kittenDataList = [kittenOneData, kittenTwoData, kittenThreeData]; //ejercicio arrays 2.8
+
 const addBtn = document.querySelector('.js-btn-add');
 const inputDesc = document.querySelector('.js-input-desc');
 const inputPhoto = document.querySelector('.js-input-photo');
@@ -56,11 +59,35 @@ const filterKitten = (event) => {
 	}
 	if (kittenThreeData.desc.includes(descrSearchText)) {
 		list.innerHTML += renderKitten(kittenThreeData);
-	}
+	}renderRace(); //como no podemos poner dos funciones manejadoras a un evento, llamamos a una dentro de la otra y se ejecutan las dos. 
 	//console.log (descrSearchText);
 };
 
+const inputRace = document.querySelector ('.js-inputRace');
+
+const raceMessageError= document.querySelector ('.js-race-error');
+
+function renderRace (race) { //BONUS 2 DEL 2.6
+  const raceSearchText = inputRace.value;
+  if(raceSearchText ===  ''){
+    console.log (raceSearchText)
+    raceMessageError.innerHTML = `¡Uy que despiste, no sabemos su raza!`;
+    
+  }else if (kittenOneData.race.includes(raceSearchText)) {
+		list.innerHTML = renderKitten(kittenOneData);
+
+  }else if (kittenTwoData.race.includes(raceSearchText)) {
+		list.innerHTML = renderKitten(kittenTwoData);
+
+  }else if (kittenThreeData.race.includes(raceSearchText)) {
+		list.innerHTML = renderKitten(kittenThreeData);
+  }};
+
+
 buttonSearch.addEventListener('click', filterKitten);
+
+
+
 
 //1LLAMAMOS AL SIMBOLO MAS
 const addPlus = document.querySelector('.js-add');
@@ -100,12 +127,21 @@ function addNewKitten(event) {
 
 addBtn.addEventListener('click', addNewKitten);
 
-cancelBtn.addEventListener('click', (event) => {
-	inputPhoto.value = '';
+
+//BONUS 4 DEL PUNTO 2.6
+
+const cancelNewKitten = (event) => { 
+  inputPhoto.value = '';
 	inputDesc.value = '';
 	inputName.value = '';
 	newForm.classList.add('collapsed');
-});
+  
+};
+
+cancelBtn.addEventListener('click', cancelNewKitten);
+	
+
+
 
 //PUNTO 3 HEMOS CREADO UNA FUNCION RENDERKITTEN PARA UNIFICAR EL CODIGO PARA CREAR UN GATO
 
