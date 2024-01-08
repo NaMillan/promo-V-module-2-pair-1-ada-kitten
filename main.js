@@ -51,7 +51,12 @@ const filterKitten = (event) => {
 	event.preventDefault();
 	const descrSearchText = input_search_desc.value;
 	list.innerHTML = '';
-	if (kittenOneData.desc.includes(descrSearchText)) {
+	for (const kittenItems of kittenDataList) {
+		if (kittenItems.desc.includes(descrSearchText)){ //cambiamos el codigo para hacer un bucle con el for kittenItems mas abajo y evitarnos la repeticion de if
+		list.innerHTML += renderKitten(kittenItems);
+		}
+	}
+	/*if (kittenOneData.desc.includes(descrSearchText)) {
 		list.innerHTML = renderKitten(kittenOneData); // Hemos puesto la función renderKitten porque es la que hace que el gato tenga información. Dejamos el innerHTML porque la función renderKitten tiene un return y no un innerHTML.
 	}
 	if (kittenTwoData.desc.includes(descrSearchText)) {
@@ -59,7 +64,8 @@ const filterKitten = (event) => {
 	}
 	if (kittenThreeData.desc.includes(descrSearchText)) {
 		list.innerHTML += renderKitten(kittenThreeData);
-	}renderRace(); //como no podemos poner dos funciones manejadoras a un evento, llamamos a una dentro de la otra y se ejecutan las dos. 
+	}*/
+	renderRace(); //como no podemos poner dos funciones manejadoras a un evento, llamamos a una dentro de la otra y se ejecutan las dos. 
 	//console.log (descrSearchText);
 };
 
@@ -159,8 +165,16 @@ function renderKitten(kittenData) { // kittenData es un nombre genérico que ten
 </li>`;
 	return html;
 }
+function renderKittenList(kittenDataList) {
+	list.innerHTML = '';
+	for (const kittenItem of kittenDataList) {
+		list.innerHTML += renderKitten(kittenItem);  
+	}
+
+}
+renderKittenList(kittenDataList);
 // El list.innerHTML lo dejamos fuera de la función para que luego no se duplique la información al hacer un loquesea.innerHTML = renderKitten() y por eso tenemos que incluir un return en la función, para que guarde esa información.
-list.innerHTML = renderKitten(kittenOneData) + renderKitten(kittenTwoData) + renderKitten(kittenThreeData);
+//list.innerHTML = renderKitten(kittenOneData) + renderKitten(kittenTwoData) + renderKitten(kittenThreeData);
 
 /*const kittenOne = renderKitten(
 	kittenOneImage,
